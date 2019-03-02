@@ -4,12 +4,15 @@
 ### Setup
 (1) You do not need to any API Credentials to use this.
 (2) The final output will be stored in a JSON file.
+
 ### Clone and use the Python script
 ```
 $ git clone https://github.com/hridaydutta123/the-youtube-scraper.git
 $ cd the-youtube-scraper
 $ sudo pip install -r requirements.txt
 ```
+
+### Usage
 Finally you can run the script by entering one YouTube video ID and output directory path at the command line:
 ```
 $ python3 main.py --video_id <enter-youtube-video-id> --out_dir <enter-output-directory-path>
@@ -94,3 +97,7 @@ $ python3 main.py --video_id <enter-youtube-video-id> --out_dir <enter-output-di
   }
 }
 ```
+
+### References
+[1] https://github.com/egbertbouman/youtube-comment-downloader
+[2] https://github.com/faheel/youtube-scraper-api
