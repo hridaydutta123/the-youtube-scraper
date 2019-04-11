@@ -133,7 +133,7 @@ def comments_extractor(youtube_id):
         YOUTUBE_COMMENTS_URL = 'https://www.youtube.com/all_comments?v=' + str(youtube_id)
         YOUTUBE_COMMENTS_AJAX_URL = 'https://www.youtube.com/comment_ajax'
 
-        print('Downloading Youtube comments for video:', youtube_id)
+        # print('Downloading Youtube comments for video:', youtube_id)
         count = 0
 
         commentArr = []
