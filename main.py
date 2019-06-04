@@ -1,10 +1,8 @@
 import os
-import yapi
 import argparse
 import json
 from scraper.description_downloader import scrape_video_data
 from scraper.comments_downloader import comments_extractor
-from pprint import pprint
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--video_id', required=True, help='YouTube video ID')
@@ -29,6 +27,3 @@ response = {
 
 with open(os.path.join(args['out_dir'],args['video_id'] + '.json'), 'w') as fw:
 	fw.write(json.dumps(response))
-# print(json.dumps(response))
-
-

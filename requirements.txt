@@ -1,7 +1,4 @@
-requests==2.21.0
-pymongo==3.7.2
 lxml==3.5.0
-pandas==0.23.3
-numpy==1.14.5
+requests==2.21.0
 beautifulsoup4==4.7.1
-yapi==v1.3.1
+cssselect
