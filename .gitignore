@@ -1,2 +1,11 @@
+<<<<<<< HEAD
 output/
 
+=======
+data/
+data_bkp/
+Graphs/
+yt_ids.txt
+*.out
+yt_collusive*
+>>>>>>> 5bb9aeaf3aeb1888bd6abba4074722391d272d68
