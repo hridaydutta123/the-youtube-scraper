@@ -2,7 +2,8 @@ from urllib.request import urlopen
 
 # from apistar import App, Route, types, validators, http
 from bs4 import BeautifulSoup
-
+import json
+import re
 
 VERSION = '0.1.0'
 
@@ -12,16 +13,12 @@ RESPONSE = {
     'upload_date': str,
     'duration': str,
     'description': str,
-    'thumbnail_url': str,
     'genre': str,
     'is_paid': bool,
     'is_unlisted': bool,
     'is_family_friendly': bool,
     'uploader': {
         'channel_id': str,
-        'name': str,
-        'thumbnail_url': str,
-        'is_verified': bool
     },
     'statistics': {
         'views': int,
@@ -56,12 +53,14 @@ def scrape_video_data(id):
 
     youtube_video_url = 'https://www.youtube.com/watch?v=' + id
 
+
     soup = make_soup(youtube_video_url).find(id='watch7-content')
 
     if len(soup.contents) > 1:
         video = RESPONSE
         uploader = video['uploader']
         statistics = video['statistics']
+        video['regionsAllowed'] = []
 
         video['id'] = id
         # get data from tags having `itemprop` attribute
@@ -97,30 +96,22 @@ def scrape_video_data(id):
             elif key == 'channelId':
                 # get uploader's channel ID
                 uploader['channel_id'] = tag['content']
+            elif key == 'description':
+                video['description'] = tag['content']
+            elif key == 'playerType':
+                video['playerType'] = tag['content']
+            elif key == 'regionsAllowed':
+                video['regionsAllowed'].extend(tag['content'].split(','))
 
-        # get video description
-        description_para = soup.find('p', id='eow-description')
-        for br in description_para.find_all('br'):
-            br.replace_with('\n')
-        video['description'] = description_para.get_text()
-
-        # get like count
-        like_button = soup.find('button', class_='like-button-renderer-like-button-unclicked')
-        statistics['likes'] = int(remove_comma(like_button.span.string))
-
-        # get dislike count
-        dislike_button = soup.find('button', class_='like-button-renderer-dislike-button-unclicked')
-        statistics['dislikes'] = int(remove_comma(dislike_button.span.string))
-
-        # get uploader's name
-        uploader_div = soup.find('div', class_='yt-user-info')
-        uploader['name'] = uploader_div.a.get_text()
-        # is the uploader verified?
-        verified_span = uploader_div.span
-        uploader['is_verified'] = verified_span is not None
-
-        # get uploader's thumbnail URL
-        uploader['thumbnail_url'] = soup.find('span', class_='yt-thumb-clip').img['data-thumb']
+        soup1 = make_soup(youtube_video_url)
+        all_scripts = soup1.find_all('script')
+        for number, script in enumerate(all_scripts):
+            if 'isToggled' in script.text:
+                match = re.findall("label(.*?)likes", script.text)[1]
+                statistics['likes'] = int(remove_comma(str(match).split("\"")[-1]).strip())
+                
+                match = re.findall("label(.*?)dislikes", script.text)[1]
+                statistics['dislikes'] = int(remove_comma(str(match).split("\"")[-1]).strip())
 
         return RESPONSE
 

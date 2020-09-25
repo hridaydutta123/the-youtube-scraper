@@ -9,8 +9,8 @@ import multiprocessing
 from joblib import Parallel, delayed
 from tqdm import tqdm
 
-# num_cores = multiprocessing.cpu_count()
-num_cores = 30
+num_cores = multiprocessing.cpu_count()
+# num_cores = 30
 print('Total number of cores: {}'.format(num_cores))
 
 

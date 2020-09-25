@@ -4,7 +4,6 @@ import json
 from scraper.description_downloader import scrape_video_data
 from scraper.comments_downloader import comments_extractor
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--video_id', required=True, help='YouTube video ID')
 parser.add_argument('--out_dir', required=True, help='Directory to store video description')
@@ -16,9 +15,9 @@ if not os.path.exists(args['out_dir']):
 
 # Get video description
 description_response = scrape_video_data(args['video_id'])
+comment_response = comments_extractor(args['video_id'])
 
 # Get video comments
-comment_response = comments_extractor(args['video_id'])
 
 response = {
 	'video_description': description_response,

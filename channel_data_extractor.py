@@ -34,19 +34,18 @@ def channel_data(api, channel_id):
 			'kind': channel_details.items[0].kind,
 			'etag': str(channel_details.items[0].etag)
 		}
-		print(yt_channel_dict)
+		with open(str(channel_id) + '.json', 'w') as fp:
+    		json.dump(yt_channel_dict, fp)
 		# Insert into mongo
 		# coll.insert(yt_channel_dict)
 		
 
 if __name__ == '__main__':
-	api_key = '<ENTER-YOUTUBE-API-KEY>'
+	api_key = 'AIzaSyANTSkc_pzSkqf1pDV2C_JJshV2W1gPe7U'
 	api = authenticate(api_key)
 	
-	# channels = set()
-	channel_data(api, 'UCNPDjf7VSFQ1BvQ96yjpAEQ')
-	# with open('../data/ylh/yt_subs_follower.csv', 'r') as fr:
-	# 	content = fr.read().split('\n')
-	# 	for vals in content:
-	# 		channel_data(api, eval(vals)[1])
+	with open('', 'r') as fr:
+		content = fr.read().split('\n')
+		for vals in content:
+			channel_data(api, vals)
 
