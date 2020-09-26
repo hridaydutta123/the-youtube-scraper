@@ -15,7 +15,7 @@ print('Total number of cores: {}'.format(num_cores))
 
 
 parser = argparse.ArgumentParser()
-# parser.add_argument('--video_id', required=True, help='YouTube video ID')
+parser.add_argument('--input_file', required=True, help='Input file name with list of video ids (one video id per line)')
 parser.add_argument('--out_dir', required=True, help='Directory to store video description')
 args = vars(parser.parse_args())
 
@@ -41,19 +41,8 @@ def extract_data(ids):
 	except:
 		pass
 
-
-
-# usersDone = os.listdir('output')
-# existingUsers = [x[:-5] for x in usersDone]
-# print(existingUsers)
-# with open('yt_ids.txt','r') as fr:
-# 	ids = fr.read().split('\n')
-
-# 	
-# # print(json.dumps(response))
-
 if __name__ == "__main__":
-	with open('yt_ids.txt','r') as fr:
+	with open(args['input_file'],'r') as fr:
 		ids = fr.read().split('\n')
 	inputs = tqdm(ids)
 

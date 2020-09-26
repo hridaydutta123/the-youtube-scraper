@@ -54,9 +54,10 @@ def scrape_video_data(id):
     youtube_video_url = 'https://www.youtube.com/watch?v=' + id
 
 
-    soup = make_soup(youtube_video_url).find(id='watch7-content')
+    soup = make_soup(youtube_video_url)
+    soup_itemprop = soup.find(id='watch7-content')
 
-    if len(soup.contents) > 1:
+    if len(soup_itemprop.contents) > 1:
         video = RESPONSE
         uploader = video['uploader']
         statistics = video['statistics']
@@ -64,7 +65,7 @@ def scrape_video_data(id):
 
         video['id'] = id
         # get data from tags having `itemprop` attribute
-        for tag in soup.find_all(itemprop=True, recursive=False):
+        for tag in soup_itemprop.find_all(itemprop=True, recursive=False):
             key = tag['itemprop']
             if key == 'name':
                 # get video's title
@@ -103,8 +104,7 @@ def scrape_video_data(id):
             elif key == 'regionsAllowed':
                 video['regionsAllowed'].extend(tag['content'].split(','))
 
-        soup1 = make_soup(youtube_video_url)
-        all_scripts = soup1.find_all('script')
+        all_scripts = soup.find_all('script')
         for number, script in enumerate(all_scripts):
             if 'isToggled' in script.text:
                 match = re.findall("label(.*?)likes", script.text)[1]

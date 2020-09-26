@@ -13,7 +13,6 @@ def channel_data(api, channel_id):
 	# channel details
 	channel_details = api.get_channel_by_id(channel_id)
 	
-	# print(channel_details)
 	if len(channel_details.items) > 0:
 		country = None
 		if 'country' in channel_details.items[0].snippet:
@@ -35,17 +34,15 @@ def channel_data(api, channel_id):
 			'etag': str(channel_details.items[0].etag)
 		}
 		with open(str(channel_id) + '.json', 'w') as fp:
-    		json.dump(yt_channel_dict, fp)
-		# Insert into mongo
-		# coll.insert(yt_channel_dict)
-		
+			json.dump(yt_channel_dict, fp)
 
 if __name__ == '__main__':
-	api_key = 'AIzaSyANTSkc_pzSkqf1pDV2C_JJshV2W1gPe7U'
+	api_key = '<API_KEY>'
 	api = authenticate(api_key)
 	
-	with open('', 'r') as fr:
+	with open('channel_names.txt', 'r') as fr:
 		content = fr.read().split('\n')
 		for vals in content:
+			print(vals)
 			channel_data(api, vals)
 

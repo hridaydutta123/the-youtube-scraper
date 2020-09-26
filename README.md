@@ -15,8 +15,13 @@ $ sudo pip install -r requirements.txt
 
 ### Usage
 Finally you can run the script by entering one YouTube video ID and output directory path at the command line:
+1. Download video metadata and video comments from a single YouTube video
 ```
 $ python3 main.py --video_id <enter-youtube-video-id> --out_dir <enter-output-directory-path>
+```
+2. Download video metadata and video comments from a list of YouTube videos parallely (x num of cores times faster) 
+```
+$ python3 main_parallel.py --input_file <enter-file-name-with-list-of-video-ids(one-video-id-per-line)> --out_dir <enter-output-directory-path>
 ```
 
 ### Output Format

@@ -17,12 +17,12 @@ if not os.path.exists(args['out_dir']):
 description_response = scrape_video_data(args['video_id'])
 comment_response = comments_extractor(args['video_id'])
 
-# Get video comments
-
+# Get video metadata and video comments
 response = {
 	'video_description': description_response,
 	'comment_response': comment_response
 }
 
+# Write the comments to a json file
 with open(os.path.join(args['out_dir'],args['video_id'] + '.json'), 'w') as fw:
 	fw.write(json.dumps(response))
