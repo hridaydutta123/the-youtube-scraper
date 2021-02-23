@@ -105,13 +105,25 @@ def scrape_video_data(id):
                 video['regionsAllowed'].extend(tag['content'].split(','))
 
         all_scripts = soup.find_all('script')
-        for number, script in enumerate(all_scripts):
-            if 'isToggled' in script.text:
-                match = re.findall("label(.*?)likes", script.text)[1]
-                statistics['likes'] = int(remove_comma(str(match).split("\"")[-1]).strip())
+        for i in range(len(all_scripts)):
+            try :
+                if 'ytInitialData' in all_scripts[i].string:
+                    match = re.findall("label(.*)",re.findall("LIKE(.*?)like",all_scripts[i].string)[0])[0]
+                    hasil = (''.join(match.split(',')).split("\"")[-1]).strip()
+                    try:
+                        video['statistics']['likes'] = eval(hasil)
+                    except:
+                        video['statistics']['likes'] = 0
                 
-                match = re.findall("label(.*?)dislikes", script.text)[1]
-                statistics['dislikes'] = int(remove_comma(str(match).split("\"")[-1]).strip())
+                    match = re.findall("label(.*)",re.findall("DISLIKE(.*?)dislike",all_scripts[i].string)[0])[0]
+                    hasil = (''.join(match.split(',')).split("\"")[-1]).strip()
+                    try:
+                        video['statistics']['dislikes'] = eval(hasil)
+                    except:
+                        video['statistics']['dislikes'] = 0
+                
+            except :
+                pass
 
         return RESPONSE
 
