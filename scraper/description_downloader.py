@@ -108,14 +108,14 @@ def scrape_video_data(id):
         for i in range(len(all_scripts)):
             try :
                 if 'ytInitialData' in all_scripts[i].string:
-                    match = re.findall("label(.*)",re.findall("LIKE(.*?)suka",all_scripts[i].string)[0])[0]
+                    match = re.findall("label(.*)",re.findall("LIKE(.*?)like",all_scripts[i].string)[0])[0]
                     hasil = (''.join(match.split(',')).split("\"")[-1]).strip()
                     try:
                         video['statistics']['likes'] = eval(hasil)
                     except:
                         video['statistics']['likes'] = 0
                 
-                    match = re.findall("label(.*)",re.findall("DISLIKE(.*?)tidak suka",all_scripts[i].string)[0])[0]
+                    match = re.findall("label(.*)",re.findall("DISLIKE(.*?)dislike",all_scripts[i].string)[0])[0]
                     hasil = (''.join(match.split(',')).split("\"")[-1]).strip()
                     try:
                         video['statistics']['dislikes'] = eval(hasil)
