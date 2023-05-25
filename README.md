@@ -25,7 +25,7 @@ $ python3 main_parallel.py --input_file <enter-file-name-with-list-of-video-ids(
 ```
 
 ### Output Format
-```
+```json
 {
   "comment_response": [
     {
