@@ -12,6 +12,9 @@ $ git clone https://github.com/hridaydutta123/the-youtube-scraper.git
 $ cd the-youtube-scraper
 $ sudo pip install -r requirements.txt
 ```
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=hridaydutta123/the-youtube-scraper&type=Date)](https://star-history.com/#hridaydutta123/the-youtube-scraper&Date)
 
 ### Usage
 Finally you can run the script by entering one YouTube video ID and output directory path at the command line:
